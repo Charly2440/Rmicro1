@@ -1,0 +1,55 @@
+---
+title: "Microproyecto"
+author: "Jose Flores"
+date: "2024-08-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl) # permite importar datos desde Excel
+library(GGally) # permite hacer matriz de correlación
+library(psych) # permite obtener coeficientes de curtosis y asimetria
+library(ggplot2) # Sirve para graficar
+library(qqplotr) # Sirve para hacer el grafico de probabilidad normal
+library(nortest) # Sirve para hacer la prueba de normalidad
+library(lmtest) # Sirve para hacer la prueba de varianza constante
+library(agricolae) # Sirve para la prueba de Fisher
+```
+
+```{r}
+Datos <- read_excel("C:/Users/José Javier Flores/Desktop/José/UVG sexto semestre/Estadistica 2/Microporyecto 1/Datos.xlsx")
+View(Datos)
+```
+
+```{r}
+Datos$Niveles <- as.factor(Datos$Niveles)
+ggplot(Datos, aes(x = Tiempo, y = Niveles)) + geom_boxplot() + labs(x = "Tiempos", y = "Niveles", title = "Niveles vrs Tiempo")
+```
+
+```{r}
+Anova <- aov(Tiempo~Niveles, data = Datos)
+summary(Anova)
+```
+
+```{r}
+print(LSD.test(Anova, "Niveles"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
